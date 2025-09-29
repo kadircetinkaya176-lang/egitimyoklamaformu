@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yoklama Formu</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Yoklama Formu</h2>
+  <form id="regForm">
+    <label for="firstname">1. İsim</label>
+    <input id="firstname" name="FirstName" type="text" placeholder="İsminizi giriniz" required />
+
+    <label for="lastname">2. Soyisim</label>
+    <input id="lastname" name="LastName" type="text" placeholder="Soyisminizi giriniz" required />
+
+    <label for="phone">3. Telefon</label>
+    <input id="phone" name="Phone" type="tel" placeholder="Telefon numaranızı giriniz (opsiyonel)" />
+
+    <label for="email">4. E-posta</label>
+    <input id="email" name="Email" type="email" placeholder="E-posta adresinizi giriniz" required />
+
+    <label for="position">5. Pozisyon</label>
+    <input id="position" name="Position" type="text" placeholder="Pozisyonunuzu giriniz" required />
+
+    <label for="audience">6. Hedef Kitle</label>
+    <select id="audience" name="Audience" required>
+      <option value="">Seçiniz</option>
+      <option value="Option1">Option 1</option>
+      <option value="Option2">Option 2</option>
+    </select>
+
+    <label for="organization">7. Kuruluş Adı</label>
+    <select id="organization" name="Organization" required>
+      <option value="">Seçiniz</option>
+      <option value="Kurulus1">Kuruluş 1</option>
+      <option value="Kurulus2">Kuruluş 2</option>
+      <option value="Kurulus3">Kuruluş 3</option>
+    </select>
+
+    <!-- 8. Training ID (gizli) -->
+    <input id="trainingId" name="TrainingID" type="hidden" />
+
+    <button id="submitBtn" type="submit">Kaydol</button>
+    <div id="result" class="result"></div>
+  </form>
+
+  <script>
+    // URL parametresinden TrainingID al
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById("trainingId").value = urlParams.get("TRX_Trainings");
+
+    document.getElementById("regForm").addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      const payload = {
+        FirstName: document.getElementById("firstname").value,
+        LastName: document.getElementById("lastname").value,
+        Phone: document.getElementById("phone").value,
+        Email: document.getElementById("email").value,
+        Position: document.getElementById("position").value,
+        Audience: document.getElementById("audience").value,
+        Organization: document.getElementById("organization").value,
+        TrainingID: document.getElementById("trainingId").value
+      };
+
+      const response = await fetch("FLOW_ENDPOINT_URL", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if(response.ok){
+        document.getElementById("result").innerText = "✅ Kayıt başarıyla gönderildi.";
+      } else {
+        document.getElementById("result").innerText = "❌ Hata oluştu, lütfen tekrar deneyin.";
+      }
+    });
+  </script>
+</body>
+</html>
