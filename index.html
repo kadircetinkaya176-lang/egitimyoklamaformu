@@ -70,7 +70,7 @@
         TrainingID: document.getElementById("trainingId").value
       };
 
-      const response = await fetch("FLOW_ENDPOINT_URL", {
+      const response = await fetch("https://defaulta074c220d3a44bc09f1d578821f1b1.5f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/3c12da09807d4524ab83066810ef99d8/triggers/manual/paths/invoke/?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=jPFiT5G5MSOIjYBt3vZGov7xgvZdnVm7uBrl9sAMnCI", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
