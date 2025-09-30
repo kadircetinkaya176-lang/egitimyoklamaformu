@@ -6,49 +6,65 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 600px;
+      max-width: 650px;
       margin: 20px auto;
-      padding: 10px;
+      padding: 15px;
+      font-size: 20px; /* Genel yazı boyutu */
+    }
+    h2 {
+      font-size: 26px; /* Başlık daha büyük */
+      text-align: center;
     }
     label {
       font-weight: bold;
       display: block;
-      margin-top: 15px;
+      margin-top: 20px;
+      font-size: 20px; /* Etiketler büyük */
     }
     input, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      font-size: 16px;
+      padding: 14px;
+      margin-top: 8px;
+      font-size: 20px; /* Giriş kutuları büyük */
       box-sizing: border-box;
     }
-    /* Telefon alanı biraz daha büyük olacak */
+    /* Telefon alanı ekstra büyük */
     #phone {
-      font-size: 18px;
-      padding: 12px;
+      font-size: 22px;
+      padding: 16px;
     }
     button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      font-size: 16px;
+      margin-top: 25px;
+      padding: 16px 24px;
+      font-size: 22px;
       cursor: pointer;
       width: 100%;
     }
     .result {
-      margin-top: 20px;
+      margin-top: 25px;
       font-weight: bold;
+      font-size: 20px;
     }
-    /* Mobil uyum için */
+    /* Mobil uyum */
     @media (max-width: 600px) {
       body {
         margin: 10px;
+        font-size: 22px;
       }
-      button {
-        font-size: 18px;
-        padding: 14px;
+      h2 {
+        font-size: 28px;
       }
       input, select {
-        font-size: 18px;
+        font-size: 22px;
+        padding: 16px;
+      }
+      #phone {
+        font-size: 24px;
+        padding: 18px;
+      }
+      button {
+        font-size: 24px;
+        padding: 18px;
       }
     }
   </style>
