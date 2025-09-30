@@ -3,37 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <title>Yoklama Formu</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 📱 mobil için eklendi -->
+
+  <!-- 📱 Tüm cihazlarda uyumlu görünüm için -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body { 
       font-family: Arial, sans-serif; 
       max-width: 600px; 
       margin: 20px auto; 
-      padding: 10px; 
-      font-size: 18px; /* 📱 yazılar mobilde rahat okunacak */
+      padding: 10px;
+      font-size: 16px; /* Genel font boyutu */
     }
+
     label { 
       font-weight: bold; 
       display: block; 
       margin-top: 15px; 
     }
+
     input, select { 
       width: 100%; 
-      padding: 12px; /* 📱 tıklaması kolay olsun */
+      padding: 10px; 
       margin-top: 5px; 
-      font-size: 16px; 
+      font-size: 16px;
+      box-sizing: border-box; /* Taşma engeli */
     }
+
     button { 
       margin-top: 20px; 
-      padding: 14px 20px; 
-      font-size: 18px; 
+      padding: 12px 20px; 
+      font-size: 16px; 
       cursor: pointer; 
-      width: 100%; /* 📱 telefonda tam genişlik */
+      width: 100%; /* 📱 küçük ekranlarda tam genişlik */
     }
+
     .result { 
       margin-top: 20px; 
       font-weight: bold; 
       font-size: 16px;
+    }
+
+    /* 📱 Mobil cihazlara özel */
+    @media (max-width: 768px) {
+      body {
+        font-size: 18px; /* Yazılar büyüsün */
+      }
+      input, select, button {
+        font-size: 18px;
+        padding: 14px;
+      }
     }
   </style>
 </head>
