@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Eğitim Katılım Formu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -28,17 +28,19 @@
       position: absolute;
       top: 20px;
       right: 20px;
+      height: 120px; /* Logo kapsayıcısı yüksekliği */
     }
 
     .logo img {
-      width: 100px;
-      height: auto;
+      max-height: 100%;
+      width: auto;
+      display: block;
     }
 
     h2 {
       text-align: center;
       font-size: 28px;
-      margin-top: 60px; /* Başlık ve logo arası boşluk artırıldı */
+      margin-top: 140px; /* Logo yüksekliği ve boşluk kadar yukarıdan boşluk */
       margin-bottom: 40px;
       color: #2c3e50;
     }
@@ -121,6 +123,7 @@
 
       h2 {
         font-size: 24px;
+        margin-top: 120px; /* biraz küçültüldü mobilde */
       }
 
       input, select {
@@ -133,8 +136,12 @@
         padding: 14px;
       }
 
+      .logo {
+        height: 90px;
+      }
+
       .logo img {
-        width: 80px;
+        max-height: 100%;
       }
     }
   </style>
@@ -199,8 +206,9 @@
     const form = document.getElementById("regForm");
     const submitBtn = document.getElementById("submitBtn");
 
-    form.addEventListener("submit", async function(e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
+
       submitBtn.disabled = true;
       submitBtn.innerText = "Gönderiliyor...";
 
@@ -214,7 +222,7 @@
         Organization: document.getElementById("organization").value,
         TrainingID: document.getElementById("trainingId").value,
         Training_StartDateTime: document.getElementById("trainingStart").value,
-        Training_EndDateTime: document.getElementById("trainingEnd").value
+        Training_EndDateTime: document.getElementById("trainingEnd").value,
       };
 
       const response = await fetch(
@@ -222,7 +230,7 @@
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
         }
       );
 
