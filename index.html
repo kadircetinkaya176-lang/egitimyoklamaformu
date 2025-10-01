@@ -10,7 +10,7 @@
       margin: 20px auto;
       padding: 15px;
       font-size: 20px;
-      transition: opacity 0.8s; /* Fade-out animasyonu için */
+      transition: opacity 0.8s;
     }
     body.fade-out { opacity: 0; }
     h2 { font-size: 26px; text-align: center; }
@@ -70,6 +70,11 @@
   </form>
 
   <script>
+    // Eğer kullanıcı daha önce form doldurduysa otomatik tamamlandi.html'e yönlendir
+    if (localStorage.getItem("formSubmitted") === "true") {
+      window.location.href = "tamamlandi.html";
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     document.getElementById("trainingId").value = urlParams.get("TRX_Trainings");
 
@@ -97,11 +102,14 @@
       );
 
       if (response.ok) {
-        // Fade-out animasyonu ve yönlendirme
+        // Tarayıcıya işaret koy
+        localStorage.setItem("formSubmitted", "true");
+
+        // Fade-out ve yönlendirme
         document.body.classList.add("fade-out");
         setTimeout(() => {
           window.location.href = "tamamlandi.html";
-        }, 800); // 0.8 saniye animasyon
+        }, 800);
       } else {
         document.getElementById("result").innerText = "❌ Hata oluştu, lütfen tekrar deneyin.";
       }
