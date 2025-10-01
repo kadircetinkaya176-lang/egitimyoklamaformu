@@ -10,15 +10,56 @@
       margin: 20px auto;
       padding: 15px;
       font-size: 20px;
-      transition: opacity 0.8s;
+      transition: opacity 0.8s; /* Fade-out animasyonu için */
     }
     body.fade-out { opacity: 0; }
     h2 { font-size: 26px; text-align: center; }
-    label { font-weight: bold; display: block; margin-top: 20px; font-size: 20px; }
-    input, select { width: 100%; padding: 14px; margin-top: 8px; font-size: 20px; box-sizing: border-box; }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    /* Zorunlu alan için kırmızı yıldız */
+    .required::after {
+      content: " *";
+      color: red;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      font-size: 20px;
+      box-sizing: border-box;
+    }
+
     #phone { font-size: 22px; padding: 16px; }
-    button { margin-top: 25px; padding: 16px 24px; font-size: 22px; cursor: pointer; width: 100%; }
-    .result { margin-top: 25px; font-weight: bold; font-size: 20px; }
+
+    button {
+      margin-top: 25px;
+      padding: 16px 24px;
+      font-size: 22px;
+      cursor: pointer;
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
     @media (max-width: 600px) {
       body { margin: 10px; font-size: 22px; }
       h2 { font-size: 28px; }
@@ -32,29 +73,29 @@
   <h2>Eğitim Katılım Formu</h2>
 
   <form id="regForm">
-    <label for="firstname">1. İsim</label>
+    <label for="firstname" class="required">1. İsim</label>
     <input id="firstname" name="FirstName" type="text" placeholder="İsminizi giriniz" required />
 
-    <label for="lastname">2. Soyisim</label>
+    <label for="lastname" class="required">2. Soyisim</label>
     <input id="lastname" name="LastName" type="text" placeholder="Soyisminizi giriniz" required />
 
     <label for="phone">3. Telefon</label>
     <input id="phone" name="Phone" type="tel" placeholder="Telefon numaranızı giriniz (opsiyonel)" />
 
-    <label for="email">4. E-posta</label>
+    <label for="email" class="required">4. E-posta</label>
     <input id="email" name="Email" type="email" placeholder="E-posta adresinizi giriniz" required />
 
-    <label for="position">5. Pozisyon</label>
+    <label for="position" class="required">5. Pozisyon</label>
     <input id="position" name="Position" type="text" placeholder="Pozisyonunuzu giriniz" required />
 
-    <label for="audience">6. Hedef Kitle</label>
+    <label for="audience" class="required">6. Hedef Kitle</label>
     <select id="audience" name="Audience" required>
       <option value="">Seçiniz</option>
       <option value="Option1">Option 1</option>
       <option value="Option2">Option 2</option>
     </select>
 
-    <label for="organization">7. Kuruluş Adı</label>
+    <label for="organization" class="required">7. Kuruluş Adı</label>
     <select id="organization" name="Organization" required>
       <option value="">Seçiniz</option>
       <option value="Kurulus1">Kuruluş 1</option>
@@ -64,19 +105,22 @@
 
     <!-- 8. Training ID (gizli) -->
     <input id="trainingId" name="TrainingID" type="hidden" />
+    <!-- 9. Training Start DateTime (gizli) -->
+    <input id="trainingStart" name="Training_StartDateTime" type="hidden" />
+    <!-- 10. Training End DateTime (gizli) -->
+    <input id="trainingEnd" name="Training_EndDateTime" type="hidden" />
 
     <button id="submitBtn" type="submit">Kaydol</button>
     <div id="result" class="result"></div>
   </form>
 
   <script>
-    // Eğer kullanıcı daha önce form doldurduysa otomatik tamamlandi.html'e yönlendir
-    if (localStorage.getItem("formSubmitted") === "true") {
-      window.location.href = "tamamlandi.html";
-    }
-
     const urlParams = new URLSearchParams(window.location.search);
+
+    // Gizli alanlara parametreleri doldur
     document.getElementById("trainingId").value = urlParams.get("TRX_Trainings");
+    document.getElementById("trainingStart").value = urlParams.get("Training_StartDateTime");
+    document.getElementById("trainingEnd").value = urlParams.get("Training_EndDateTime");
 
     document.getElementById("regForm").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -89,7 +133,9 @@
         Position: document.getElementById("position").value,
         Audience: document.getElementById("audience").value,
         Organization: document.getElementById("organization").value,
-        TrainingID: document.getElementById("trainingId").value
+        TrainingID: document.getElementById("trainingId").value,
+        Training_StartDateTime: document.getElementById("trainingStart").value,
+        Training_EndDateTime: document.getElementById("trainingEnd").value
       };
 
       const response = await fetch(
@@ -102,10 +148,6 @@
       );
 
       if (response.ok) {
-        // Tarayıcıya işaret koy
-        localStorage.setItem("formSubmitted", "true");
-
-        // Fade-out ve yönlendirme
         document.body.classList.add("fade-out");
         setTimeout(() => {
           window.location.href = "tamamlandi.html";
