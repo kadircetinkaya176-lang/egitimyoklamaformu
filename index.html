@@ -49,9 +49,31 @@
       border: none;
       border-radius: 6px;
       transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
     button:hover {
       background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: #95a5a6;
+      cursor: not-allowed;
+    }
+
+    /* Spinner */
+    .spinner {
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .result {
@@ -103,11 +125,9 @@
       <option value="Kurulus3">Kuruluş 3</option>
     </select>
 
-    <!-- 8. Training ID (gizli) -->
+    <!-- Gizli Alanlar -->
     <input id="trainingId" name="TrainingID" type="hidden" />
-    <!-- 9. Training Start DateTime (gizli) -->
     <input id="trainingStart" name="Training_StartDateTime" type="hidden" />
-    <!-- 10. Training End DateTime (gizli) -->
     <input id="trainingEnd" name="Training_EndDateTime" type="hidden" />
 
     <button id="submitBtn" type="submit">Kaydol</button>
@@ -122,8 +142,14 @@
     document.getElementById("trainingStart").value = urlParams.get("Training_StartDateTime");
     document.getElementById("trainingEnd").value = urlParams.get("Training_EndDateTime");
 
+    const submitBtn = document.getElementById("submitBtn");
+
     document.getElementById("regForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+
+      // Butonu disable et + spinner ekle
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<div class="spinner"></div> Gönderiliyor...';
 
       const payload = {
         FirstName: document.getElementById("firstname").value,
@@ -154,6 +180,8 @@
         }, 800);
       } else {
         document.getElementById("result").innerText = "❌ Hata oluştu, lütfen tekrar deneyin.";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Kaydol"; // hata olursa tekrar aktif et
       }
     });
   </script>
