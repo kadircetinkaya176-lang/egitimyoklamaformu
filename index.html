@@ -30,7 +30,7 @@
     }
 
     .logo img {
-      width: 120px;
+      width: 100px;
       height: auto;
     }
 
@@ -127,19 +127,22 @@
       }
 
       .logo img {
-        width: 90px;
+        width: 80px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- LOGO -->
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Logo_2021.png/240px-Logo_2021.png" alt="Logo" />
+      <img src="https://raw.githubusercontent.com/kadircetinkaya176-lang/egitimlogo/5d26cd79724ede1f46647d2d6faff26d1add2329/image006.png" alt="MEXT Logo" />
     </div>
 
+    <!-- BAŞLIK -->
     <h2>Eğitim Katılım Formu</h2>
 
+    <!-- FORM -->
     <form id="regForm">
       <label for="firstname" class="required">1. İsim</label>
       <input id="firstname" name="FirstName" type="text" placeholder="İsminizi giriniz" required />
@@ -224,4 +227,9 @@
       } else {
         document.getElementById("result").innerText = "❌ Hata oluştu, lütfen tekrar deneyin.";
         submitBtn.disabled = false;
-       
+        submitBtn.innerText = "Kaydol";
+      }
+    });
+  </script>
+</body>
+</html>
