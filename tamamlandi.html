@@ -50,5 +50,13 @@
 <body>
   <h1>✅ Kayıt Tamamlandı!</h1>
   <p>Katılım formunuz başarıyla gönderildi.<br>Teşekkür ederiz!</p>
+
+  <script>
+    // Geri tuşu ile form sayfasına dönmeyi engelle
+    history.replaceState(null, "", window.location.href);
+    window.onpopstate = function () {
+      history.go(1);
+    };
+  </script>
 </body>
 </html>
