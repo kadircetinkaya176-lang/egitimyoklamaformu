@@ -10,7 +10,7 @@
       margin: 20px auto;
       padding: 15px;
       font-size: 20px;
-      transition: opacity 0.8s; /* Fade-out animasyonu için */
+      transition: opacity 0.8s;
     }
     body.fade-out { opacity: 0; }
     h2 { font-size: 26px; text-align: center; }
@@ -22,7 +22,6 @@
       font-size: 20px;
     }
 
-    /* Zorunlu alan için kırmızı yıldız */
     .required::after {
       content: " *";
       color: red;
@@ -50,8 +49,12 @@
       border-radius: 6px;
       transition: background-color 0.3s;
     }
-    button:hover {
+    button:hover:not(:disabled) {
       background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
     }
 
     .result {
@@ -103,11 +106,8 @@
       <option value="Kurulus3">Kuruluş 3</option>
     </select>
 
-    <!-- 8. Training ID (gizli) -->
     <input id="trainingId" name="TrainingID" type="hidden" />
-    <!-- 9. Training Start DateTime (gizli) -->
     <input id="trainingStart" name="Training_StartDateTime" type="hidden" />
-    <!-- 10. Training End DateTime (gizli) -->
     <input id="trainingEnd" name="Training_EndDateTime" type="hidden" />
 
     <button id="submitBtn" type="submit">Kaydol</button>
@@ -117,13 +117,19 @@
   <script>
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Gizli alanlara parametreleri doldur
     document.getElementById("trainingId").value = urlParams.get("TRX_Trainings");
     document.getElementById("trainingStart").value = urlParams.get("Training_StartDateTime");
     document.getElementById("trainingEnd").value = urlParams.get("Training_EndDateTime");
 
-    document.getElementById("regForm").addEventListener("submit", async function(e) {
+    const form = document.getElementById("regForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", async function(e) {
       e.preventDefault();
+
+      // Kaydol butonunu disable et
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Gönderiliyor...";
 
       const payload = {
         FirstName: document.getElementById("firstname").value,
@@ -154,6 +160,8 @@
         }, 800);
       } else {
         document.getElementById("result").innerText = "❌ Hata oluştu, lütfen tekrar deneyin.";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Kaydol"; // Hata olursa tekrar aktif et
       }
     });
   </script>
