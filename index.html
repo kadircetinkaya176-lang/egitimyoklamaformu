@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Eğitim Katılım Formu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 650px;
-      margin: 20px auto;
-      padding: 15px;
-      font-size: 20px;
-      transition: opacity 0.8s;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f4f7fa;
+      font-size: 18px;
     }
-    body.fade-out { opacity: 0; }
-    h2 { font-size: 26px; text-align: center; }
+
+    .container {
+      max-width: 700px;
+      background: white;
+      margin: 40px auto;
+      padding: 40px 35px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .logo img {
+      width: 120px;
+      height: auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
 
     label {
-      font-weight: bold;
+      font-weight: 600;
       display: block;
       margin-top: 20px;
-      font-size: 20px;
+      font-size: 18px;
+      color: #34495e;
     }
 
     .required::after {
@@ -31,92 +58,130 @@
       width: 100%;
       padding: 14px;
       margin-top: 8px;
-      font-size: 20px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       box-sizing: border-box;
+      transition: border-color 0.3s;
     }
 
-    #phone { font-size: 22px; padding: 16px; }
+    input:focus, select:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    #phone {
+      font-size: 18px;
+    }
 
     button {
-      margin-top: 25px;
+      margin-top: 30px;
       padding: 16px 24px;
-      font-size: 22px;
+      font-size: 20px;
+      font-weight: 600;
       cursor: pointer;
       width: 100%;
       background-color: #3498db;
       color: white;
       border: none;
-      border-radius: 6px;
-      transition: background-color 0.3s;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
     }
+
     button:hover:not(:disabled) {
       background-color: #2980b9;
+      transform: scale(1.02);
     }
+
     button:disabled {
-      background-color: gray;
+      background-color: #95a5a6;
       cursor: not-allowed;
     }
 
     .result {
       margin-top: 25px;
       font-weight: bold;
-      font-size: 20px;
+      font-size: 18px;
+      color: #e74c3c;
+      text-align: center;
+    }
+
+    body.fade-out {
+      opacity: 0;
+      transition: opacity 0.8s;
     }
 
     @media (max-width: 600px) {
-      body { margin: 10px; font-size: 22px; }
-      h2 { font-size: 28px; }
-      input, select { font-size: 22px; padding: 16px; }
-      #phone { font-size: 24px; padding: 18px; }
-      button { font-size: 24px; padding: 18px; }
+      .container {
+        margin: 20px 10px;
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 18px;
+        padding: 14px;
+      }
+
+      .logo img {
+        width: 90px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Eğitim Katılım Formu</h2>
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Logo_2021.png/240px-Logo_2021.png" alt="Logo" />
+    </div>
 
-  <form id="regForm">
-    <label for="firstname" class="required">1. İsim</label>
-    <input id="firstname" name="FirstName" type="text" placeholder="İsminizi giriniz" required />
+    <h2>Eğitim Katılım Formu</h2>
 
-    <label for="lastname" class="required">2. Soyisim</label>
-    <input id="lastname" name="LastName" type="text" placeholder="Soyisminizi giriniz" required />
+    <form id="regForm">
+      <label for="firstname" class="required">1. İsim</label>
+      <input id="firstname" name="FirstName" type="text" placeholder="İsminizi giriniz" required />
 
-    <label for="phone">3. Telefon</label>
-    <input id="phone" name="Phone" type="tel" placeholder="Telefon numaranızı giriniz (opsiyonel)" />
+      <label for="lastname" class="required">2. Soyisim</label>
+      <input id="lastname" name="LastName" type="text" placeholder="Soyisminizi giriniz" required />
 
-    <label for="email" class="required">4. E-posta</label>
-    <input id="email" name="Email" type="email" placeholder="E-posta adresinizi giriniz" required />
+      <label for="phone">3. Telefon</label>
+      <input id="phone" name="Phone" type="tel" placeholder="Telefon numaranızı giriniz (opsiyonel)" />
 
-    <label for="position" class="required">5. Pozisyon</label>
-    <input id="position" name="Position" type="text" placeholder="Pozisyonunuzu giriniz" required />
+      <label for="email" class="required">4. E-posta</label>
+      <input id="email" name="Email" type="email" placeholder="E-posta adresinizi giriniz" required />
 
-    <label for="audience" class="required">6. Hedef Kitle</label>
-    <select id="audience" name="Audience" required>
-      <option value="">Seçiniz</option>
-      <option value="Option1">Option 1</option>
-      <option value="Option2">Option 2</option>
-    </select>
+      <label for="position" class="required">5. Pozisyon</label>
+      <input id="position" name="Position" type="text" placeholder="Pozisyonunuzu giriniz" required />
 
-    <label for="organization" class="required">7. Kuruluş Adı</label>
-    <select id="organization" name="Organization" required>
-      <option value="">Seçiniz</option>
-      <option value="Kurulus1">Kuruluş 1</option>
-      <option value="Kurulus2">Kuruluş 2</option>
-      <option value="Kurulus3">Kuruluş 3</option>
-    </select>
+      <label for="audience" class="required">6. Hedef Kitle</label>
+      <select id="audience" name="Audience" required>
+        <option value="">Seçiniz</option>
+        <option value="Option1">Option 1</option>
+        <option value="Option2">Option 2</option>
+      </select>
 
-    <input id="trainingId" name="TrainingID" type="hidden" />
-    <input id="trainingStart" name="Training_StartDateTime" type="hidden" />
-    <input id="trainingEnd" name="Training_EndDateTime" type="hidden" />
+      <label for="organization" class="required">7. Kuruluş Adı</label>
+      <select id="organization" name="Organization" required>
+        <option value="">Seçiniz</option>
+        <option value="Kurulus1">Kuruluş 1</option>
+        <option value="Kurulus2">Kuruluş 2</option>
+        <option value="Kurulus3">Kuruluş 3</option>
+      </select>
 
-    <button id="submitBtn" type="submit">Kaydol</button>
-    <div id="result" class="result"></div>
-  </form>
+      <input id="trainingId" name="TrainingID" type="hidden" />
+      <input id="trainingStart" name="Training_StartDateTime" type="hidden" />
+      <input id="trainingEnd" name="Training_EndDateTime" type="hidden" />
+
+      <button id="submitBtn" type="submit">Kaydol</button>
+      <div id="result" class="result"></div>
+    </form>
+  </div>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-
     document.getElementById("trainingId").value = urlParams.get("TRX_Trainings");
     document.getElementById("trainingStart").value = urlParams.get("Training_StartDateTime");
     document.getElementById("trainingEnd").value = urlParams.get("Training_EndDateTime");
@@ -126,8 +191,6 @@
 
     form.addEventListener("submit", async function(e) {
       e.preventDefault();
-
-      // Kaydol butonunu disable et
       submitBtn.disabled = true;
       submitBtn.innerText = "Gönderiliyor...";
 
@@ -161,9 +224,4 @@
       } else {
         document.getElementById("result").innerText = "❌ Hata oluştu, lütfen tekrar deneyin.";
         submitBtn.disabled = false;
-        submitBtn.innerText = "Kaydol"; // Hata olursa tekrar aktif et
-      }
-    });
-  </script>
-</body>
-</html>
+       
